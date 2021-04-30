@@ -4,29 +4,28 @@
 #include <sys/wait.h> 
 #include <unistd.h>
 
-char name[50];
+char name[20];
 
-void jobisdone(){
-	printf("job is done\n");
+void getname(){//function
+	printf("Enter your name: ");
+	gets(name);
+	
+	printf("Your name is %s\n", name);
 }
 
 int main(void){
-	for (int i = 4; i >= 1; i--){
-		pid_t pid = fork();
-		
+for (int i = 4; i>0; i--){//loop
+	pid_t pid = fork();//fork
 		if(pid == 0){			
-			printf("Enter your name: ");
-			gets(name);
-			
-			printf("Your name is %s\n", name);
+			getname();
 		}
-		
 		else{
-			wait(NULL);
+			wait(NULL);//wait			
+			if(i==1)
+				printf("job is done\n");
 			exit (0);
 		}
-	}
-	
-jobisdone();	
+}		
+
 return EXIT_SUCCESS;
 }
